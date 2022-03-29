@@ -17,6 +17,7 @@ export class EditServerComponent implements OnInit {
 
   ngOnInit(): void {
     //Snapshot tem o mesmo problema do próprio componente
+    const id=+this.route.snapshot.params['id'];
     console.log(this.route.snapshot.queryParams);
     console.log(this.route.snapshot.fragment);
     //Resolução através dos Observables
@@ -26,8 +27,14 @@ export class EditServerComponent implements OnInit {
           this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
         }
       );
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.server = <{id: number, name: string, status: string}>this.serversService.getServer(+params['id']);
+        }
+      ) 
     this.route.fragment.subscribe();
-    this.server = <{id: number, name: string, status: string}>this.serversService.getServer(1);
+    //this.server = <{id: number, name: string, status: string}>this.serversService.getServer(id);
     this.serverName = <string>this.server.name;
     this.serverStatus = <string>this.server.status;
   }
