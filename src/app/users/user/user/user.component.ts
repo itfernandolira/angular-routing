@@ -10,14 +10,14 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class UserComponent implements OnInit {
   user: {id?: number, name?: string} = {};
 
-  constructor(private router: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.user = {
-      id: this.router.snapshot.params['id'],
-      name: this.router.snapshot.params['name']
+      id: this.route.snapshot.params['id'],
+      name: this.route.snapshot.params['name']
     }
-    this.router.params
+    this.route.params
       .subscribe(
         (params: Params) => {
           this.user.id = params['id'];
